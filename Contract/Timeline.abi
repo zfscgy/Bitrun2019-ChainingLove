@@ -1,0 +1,237 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "new_name",
+				"type": "string"
+			}
+		],
+		"name": "SetName",
+		"outputs": [
+			{
+				"name": "status",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "GetProposals",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "proposalType",
+						"type": "uint8"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"name": "proposer",
+						"type": "address"
+					},
+					{
+						"name": "Confirmations",
+						"type": "uint8[]"
+					},
+					{
+						"components": [
+							{
+								"name": "actType",
+								"type": "uint8"
+							},
+							{
+								"name": "time",
+								"type": "uint256"
+							},
+							{
+								"name": "partners",
+								"type": "address[]"
+							},
+							{
+								"name": "desc",
+								"type": "string"
+							}
+						],
+						"name": "activity",
+						"type": "tuple"
+					},
+					{
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "GetTimeLine",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"name": "lover",
+						"type": "address"
+					},
+					{
+						"name": "friends",
+						"type": "address[]"
+					},
+					{
+						"components": [
+							{
+								"name": "actType",
+								"type": "uint8"
+							},
+							{
+								"name": "time",
+								"type": "uint256"
+							},
+							{
+								"name": "partners",
+								"type": "address[]"
+							},
+							{
+								"name": "desc",
+								"type": "string"
+							}
+						],
+						"name": "activities",
+						"type": "tuple[]"
+					}
+				],
+				"name": "moments",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "lover_addr",
+				"type": "address"
+			}
+		],
+		"name": "ProposeLove",
+		"outputs": [
+			{
+				"name": "status",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "partners",
+				"type": "address[]"
+			},
+			{
+				"name": "desc",
+				"type": "string"
+			}
+		],
+		"name": "ProposeActivity",
+		"outputs": [
+			{
+				"name": "status",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "Hello",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"name": "confirmation",
+				"type": "uint256"
+			}
+		],
+		"name": "ConfirmProposal",
+		"outputs": [
+			{
+				"name": "status",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "user_addr",
+				"type": "address"
+			}
+		],
+		"name": "GetName",
+		"outputs": [
+			{
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
