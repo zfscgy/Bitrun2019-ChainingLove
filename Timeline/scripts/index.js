@@ -74,6 +74,8 @@ var vue = new Vue(
             {
                 partners.push(this.currentPerson)
             }
+            let date = new Date();
+            let date_str = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString();
             this.Timelines[this.currentPerson].timeline.push({
                 type: "normal", 
                 time: "2019-4-21", 
