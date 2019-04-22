@@ -1,0 +1,182 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, sans-serif;
+}
+
+body {
+    background: #25303B;
+}
+
+div#timeline
+{
+    display: flex;
+    justify-content: center;
+}
+
+div#timeline-header
+{
+    font-size: 40px;
+    text-align: center;
+}
+div#timeline-poster
+{
+    width: 75%;
+    position: fixed;
+    left: 50%;
+    bottom: 5%;
+    margin-left: -37.5%;
+    display: flex;
+    justify-content: center;
+}
+div#timeline-header p
+{
+    color: #fefefe;
+}
+
+section#timeline {
+    width: 90%;
+    margin: 20px auto;
+    position: relative;
+    height: 85%;
+}
+
+section#timeline:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin: 0 0 0 -1px;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+section#timeline article {
+    width: 100%;
+    margin: 0 0 20px 0;
+    position: relative;
+}
+
+section#timeline article:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+section#timeline article div.inner {
+    width: 40%;
+    min-height: 8em;
+    float: left;
+    margin: 5px 0 0 0;
+    border-radius: 6px;
+}
+
+section#timeline article div.date {
+    display: block;
+    width: 50%;
+    height: 64px;
+    padding: 15px 20px 5px 20px;
+    float: right;
+    top: 0;
+    border-radius: 100%;
+    font-size: 24px;
+    font-weight: 900;
+    text-align: left;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+section#timeline article div.inner div.head {
+    padding: 2px;
+    height: 52px;
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+}
+
+section#timeline article div.inner div.head:after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    -webkit-transform: rotate(-45deg);
+}
+
+section#timeline article div.inner div.head img {
+    border-radius: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
+
+}
+
+section#timeline article div.inner p {
+    padding: 15px;
+    margin: 0;
+    font-size: 14px;
+    background: #fff;
+    color: #656565;
+    border-radius: 0 0 6px 6px;
+    text-align: center;
+}
+
+section#timeline article:nth-child(2n+2) div.inner {
+    float: right;
+}
+
+section#timeline article:nth-child(2n+2) div.inner div.head:after {
+    left: -5px;
+}
+
+section#timeline article:nth-child(2n+2) div.date {
+    float: left;
+    text-align: right;
+}
+
+section#timeline article:nth-child(5n+1) div.inner div.head {
+    background: #e74c3c;
+}
+
+section#timeline article:nth-child(5n+1) div.inner div.head:after {
+    background: #e74c3c;
+}
+
+section#timeline article:nth-child(5n+2) div.inner div.head {
+    background: #2ecc71;
+}
+
+section#timeline article:nth-child(5n+2) div.inner div.head:after {
+    background: #2ecc71;
+}
+
+section#timeline article:nth-child(5n+3) div.inner div.head {
+    background: #e67e22;
+}
+
+section#timeline article:nth-child(5n+3) div.inner div.head:after {
+    background: #e67e22;
+}
+
+section#timeline article:nth-child(5n+4) div.inner div.head {
+    background: #1abc9c;
+}
+
+section#timeline article:nth-child(5n+4) div.inner div.head:after {
+    background: #1abc9c;
+}
+
+section#timeline article:nth-child(5n+5) div.inner div.head {
+    background: #9b59b6;
+}
+
+section#timeline article:nth-child(5n+5) div.inner div.head:after {
+    background: #9b59b6;
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>恋上链</title> 
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="node_modules/gscatterjs-core.min.js"></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <!-- <textarea id = "text1"></textarea> -->
+    <!-- <input id="Mybutton" style="margin-left:500px;margin-top:500px" type=button value="联系我们" onclick="getTable()"> -->
+    <button class="btn btn-primary" style="right:200" onclick="getTable()">获取时间线</button>
+    <!-- <button onclick="sendData()">sendData</button> -->
+  <div class="container" style="max-width:1000px">
+    <div class="timeline" id="zf-timeline">
+      <div id="timeline-header">
+        <p>{{currentPerson}}的时间线</p>
+      </div>
+      <section id="timeline">
+        <article v-for="(moment, index) in Timelines[currentPerson].timeline">
+          <div class="date">
+            {{moment.time}}
+          </div>
+          <div class="inner">
+            <div class="head"><img v-for="partner in moment.partners" v-bind:src="PersonData.imags[partner]" width="48"
+                height="48"></img></div>
+            <p>{{moment.desc}}</p>
+          </div>
+        </article>
+      </section>
+      <div id='timeline-poster'>
+        <button type="button" class='btn btn-group-lg btn-primary' id='poster-button' style="text-align:center"
+          data-toggle="modal" data-target="#post-modal">
+          发布新内容
+        </button>
+      </div>
+      <div class="modal fade" id="post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">新的活动记录</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">参与者:</label>
+                    <input type="text" class="form-control" id="recipient-name" placeholder="参与者(以空格分隔)"  v-model="PageData.modal.inputAddresses">
+                  </div>
+                  <label for="message-text" class="col-form-label">活动内容</label>
+                  <textarea class="form-control" id="message-text" v-model="PageData.modal.inputDesc"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" v-on:click="PostActivity($event)">提交</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="./scripts/index.js"> -->
+  <script>
+  var vue = new Vue(
+{
+    el: "#zf-timeline",
+    data:
+    {
+        Timelines:
+        {
+            '小张':
+            {
+                timeline:
+                [
+                    {
+                        type: "love",
+                        time: "2015-12-12",
+                        partners: ["小张", "小丽"],
+                        desc: "在一起了"
+                    },
+                    {
+                        type: "normal",
+                        time: "2016-4-9",
+                        partners: ["小张"],
+                        desc: "考上了浙江大学研究生，很开心！"
+                    },
+                    {
+                        type: "normal",
+                        time: "2016-5-1",
+                        partners: ["小张", "小丽"],
+                        desc: "第一次一起去旅行，武汉的景点也太多了"
+                    }
+                ],
+                timeDistances:
+                [0, 0, 0, 0]
+            }
+        },
+        currentPerson: '小张',
+        PersonData:
+        {
+            imags:
+            {
+                "小张": "./imgs/img1.jpg",
+                "小丽": "./imgs/img2.jpg"
+            }
+        },
+        PageData:
+        {
+            modal:{
+                show: false,
+                inputAddresses: "",
+                inputDesc: ""
+            }
+        }
+    },
+    methods:
+    {
+        GenerateTimeDistance: function()
+        {
+            let distances = []
+            var timeline =  this.Timelines[this.currentPerson].timeline
+            for(var i = 1; i < timeline.length; i++)
+            {
+                distances.push( (new Date(timeline[i].time) - new Date(timeline[i - 1].time)) / (5 * 24*3600*1000) )
+            }
+            distances.push(0);
+            this.Timelines[this.currentPerson].timeDistances = distances
+        },
+        PostActivity: function(event)
+        {
+            let partners = this.PageData.modal.inputAddresses.split(' ')
+            if(this.PageData.modal.inputAddresses =="")
+            {
+                partners = []
+            }
+            if(!partners.includes(this.currentPerson))
+            {
+                partners.push(this.currentPerson)
+            }
+            this.Timelines[this.currentPerson].timeline.push({
+                type: "normal", 
+                time: "2019-4-21", 
+                partners: partners,
+                desc: this.PageData.modal.inputDesc})
+            $('#post-modal').modal('hide')
+        }
+    }
+})
+
+
+const network = {
+            blockchain: 'gxc',
+            protocol: 'https',
+            host: 'testnet.gxchain.org',
+            port: 443,
+            chainId: 'c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4'
+        }
+
+        let gscatter
+        let gxc
+
+        GScatterJS.gscatter.connect('exampleApp').then(async connected => {
+            if (!connected) return false
+            let account
+            gscatter = GScatterJS.gscatter
+            // require version, if user's plugin is less than the version, when operate, plugin will prompt a tips
+            // gscatter.requireVersion('9.9.9')
+
+            // when user not login, you could use api which not need identity, like generateKey
+            gxc = gscatter.gxc(network)
+
+            // if identity exist, means user has authorize the website and already unlock, you could display user info then
+            if (gscatter.identity) {
+                account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
+                // setAccountName(account)
+            }
+        })
+
+function getTable(){
+    vue["Timelines"]['小张']["timeline"] = [];
+    var gender_s = ["男","女","女","男","男","女"];
+    var date_s = ["2017-12-24", "2018-2-14", "2018-4-3", "2018-6-26", "2019-1-1", "2019-4-21"];
+    gxc.getTableObjects('democdh2', 'packet', 0, 100).then(trx => {
+        // output(`call contract success`, trx)
+        var event_s = new Array();
+        for (var i=4;i<10;i++){
+            // event_s[i-4] = trx[i].words[0];
+            vue["Timelines"]['小张']["timeline"].push({
+                type: "love",
+                time: date_s[i-4],
+                partners: ["小张", "小丽"],
+                desc: trx[i].words[0]
+            })
+        }
+        alert(events)
+        // var jsonObject = { genders: gender_s, dates: date_s, events: event_s };
+        
+    }).catch(error => {
+        output(error)
+    })
+}
+
+function sendData(){
+    alert(document.getElementById("text1").value);
+    pubk = 'GXC6V3yCJ5adMfBd6fmdLBGRwdGaaGBM8WcoRY1x5GFLV4fZDXpzo';
+    gxc.callContract.apply(gxc, ['democdh2', 'send', {pubkey:pubk, words:'test words'}, 0, true]).then(trx => {
+        alert(`call contract success`, trx)
+    }).catch(error => {
+        alert(error)
+    })
+}
+
+vue.GenerateTimeDistance()
+  </script>
+</body>
+
+</html>
